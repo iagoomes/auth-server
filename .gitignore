@@ -33,3 +33,4 @@ build/
 .vscode/
 
 src/main/resources/secret/secret-key
+/src/main/resources/secret/ClientCredentials
