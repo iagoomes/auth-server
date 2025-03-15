@@ -12,11 +12,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+#    show-sql: true
 
 server:
   servlet:
     context-path: /auth
+
+logging:
+  level:
+    root: INFO
+    br.com.fiap.postech.authserver: info
+    br.com.fiap.postech.authserver.error: error
 
 secret:
    key: ${SECRET_KEY:src/main/resources/secret/secret-key}
