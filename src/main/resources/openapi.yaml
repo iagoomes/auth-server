@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: "Auth Server API"
+  description: "Auth Server API"
+  version: "1.0.0"
+tags:
+  - name: "Auth"
+    description: "Endpoints for authentication."
+paths:
+  /token:
+    post:
+      tags:
+        - "Auth"
+      summary: "Generate Token"
+      operationId: "generateToken"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientCredentialsDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthDTO"
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    ClientCredentialsDTO:
+      type: "object"
+      properties:
+        clientId:
+          type: "string"
+        clientSecret:
+          type: "string"
+    AuthDTO:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+    ErrorResponse:
+      type: "object"
+      properties:
+        traceId:
+          type: "string"
+        timestamp:
+          type: "string"
+        message:
+          type: "string"

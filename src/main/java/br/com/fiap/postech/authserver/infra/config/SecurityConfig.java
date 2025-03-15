@@ -1,4 +1,4 @@
-package br.com.fiap.postech.authserver.config;
+package br.com.fiap.postech.authserver.infra.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)  // Desabilitar CSRF
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/api/token").permitAll()  // Permitir acesso ao endpoint de token sem autenticação
+                        .requestMatchers("/token").permitAll()  // Permitir acesso ao endpoint de token sem autenticação
                         .requestMatchers("/**").authenticated())  // Todos os outros requests precisam de autenticação
                 .httpBasic(httpBasic -> httpBasic.realmName("ClientAuthRealm"))  // Configurar autenticação básica com realm
                 .headers(headers -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));  // Permitir frames da mesma origem

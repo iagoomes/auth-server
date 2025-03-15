@@ -6,7 +6,6 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password: password
-
   h2:
     console:
       enabled: true
@@ -14,6 +13,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+server:
+  servlet:
+    context-path: /auth
 
 secret:
    key: ${SECRET_KEY:src/main/resources/secret/secret-key}

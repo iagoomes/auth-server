@@ -1,4 +1,4 @@
-package br.com.fiap.postech.authserver.model;
+package br.com.fiap.postech.authserver.infra.repository.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

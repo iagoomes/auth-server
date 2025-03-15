@@ -98,10 +98,64 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.8.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>
+                                ${project.basedir}/src/main/resources/openapi.yaml
+                            </inputSpec>
+                            <generatorName>spring</generatorName>
+                            <apiPackage>br.com.fiap.postech.authserver.api</apiPackage>
+                            <modelPackage>br.com.fiap.postech.authserver.model</modelPackage>
+                            <supportingFilesToGenerate>
+                                ApiUtil.java
+                            </supportingFilesToGenerate>
+                            <templateDirectory>${project.basedir}/src/main/resources</templateDirectory>
+                            <configOptions>
+                                <delegatePattern>true</delegatePattern>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <openApiNullable>false</openApiNullable>
+                                <dateLibrary>java8</dateLibrary>
+                                <generateBuilders>true</generateBuilders>
+                                <booleanGetterPrefix>is</booleanGetterPrefix>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <useBeanValidation>true</useBeanValidation>
+                                <useTags>true</useTags>
+                                <useSwaggerAnnotations>true</useSwaggerAnnotations>
+                                <async>true</async>
+                                <returnResponse>true</returnResponse>
+                                <additionalModelTypeAnnotations>
+                                    @SuppressWarnings({"hiding", "static-method", "unused"})
+                                    @lombok.AllArgsConstructor
+                                    @lombok.NoArgsConstructor
+                                    @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
+                                </additionalModelTypeAnnotations>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

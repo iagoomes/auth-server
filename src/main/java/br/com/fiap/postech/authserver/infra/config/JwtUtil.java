@@ -1,5 +1,6 @@
-package br.com.fiap.postech.authserver.config;
+package br.com.fiap.postech.authserver.infra.config;
 
+import br.com.fiap.postech.authserver.infra.exception.SecretKeyNotFound;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -26,21 +27,25 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(clientId)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 3600 * 1000))  // 1 hour validity
+                .setExpiration(new Date(System.currentTimeMillis() + 10 * 60 * 1000))  // 10 minutes validity
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public SecretKey getSecretKey() throws IOException {
+    public SecretKey getSecretKey() {
         byte[] decodedKey = java.util.Base64.getDecoder().decode(extractSecretValue(key));
         return Keys.hmacShaKeyFor(decodedKey);
     }
 
-    private String extractSecretValue(String key) throws IOException {
-        Path path = Path.of(key);
-        if (Files.exists(path)) {
-            return Files.readString(path).trim();
+    private String extractSecretValue(String key) {
+        try {
+            Path path = Path.of(key);
+            if (Files.exists(path)) {
+                return Files.readString(path).trim();
+            }
+            return key;
+        } catch (IOException e) {
+            throw new SecretKeyNotFound("Error reading secret value");
         }
-        return key;
     }
 }
