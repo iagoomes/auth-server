@@ -1,2 +1,3 @@
 INSERT INTO CLIENTS (client_id, client_secret) VALUES ('app_patient', '$2a$10$8zGgVRA9/BRgujEz5bopNOQGPPFYPISbq/02Mt4F5OOzYleQh3l9u');
 INSERT INTO CLIENTS (client_id, client_secret) VALUES ('app_doctor', '$2a$10$YAhTOMurR2iT7oUFc1ZF7O0IhFZHvyzGE8iUQ3Un8vaGEwlLgHqXW');
+INSERT INTO CLIENTS (client_id, client_secret) VALUES ('app_appointments', '$2a$10$XyZgVRA9/BRgujEz5bopNOQGPPFYPISbq/02Mt4F5OOzYleQh3l9u');
